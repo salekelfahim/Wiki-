@@ -68,8 +68,6 @@ Ce projet vise à créer un système de gestion de contenu Wiki avec une interfa
 
 - PDO driver
 
-## Bonus
-
 ### Upload des Images en PHP
 
 - Possibilité d'uploader des images sur la plateforme pour enrichir le contenu.
@@ -81,6 +79,6 @@ Ce projet vise à créer un système de gestion de contenu Wiki avec une interfa
 - Utilisation de namespace pour l'organisation des classes.
 
 
----
+
 
 
