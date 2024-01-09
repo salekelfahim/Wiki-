@@ -1,29 +1,38 @@
-<?php
+<?php 
+
 namespace App\Database;
+
+
 use PDO;
 use PDOException;
 
-class Database {
-    private $host = "localhost";
-    private $user = "root";
-    private $password = "";
-    private $database = "wiki";
-    private $conn;
+class Database{
 
-    public function __construct() {
+   
+    private $DBNAME = 'wiki';
+    private $DBUSER = 'root';
+    private $DBHOST = 'localhost';
+    private $DBPASSWORD = '';
+
+    public function getConnection(){
         try {
-            $dsn = "mysql:host={$this->host};dbname={$this->database}";
-            $this->conn = new PDO($dsn, $this->user, $this->password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-           
-        } catch (PDOException $e) {
-            die("Connection failed: " . $e->getMessage());
-        }
+            $conn = new PDO("mysql:host=$this->DBHOST;dbname=$this->DBNAME", $this->DBUSER, $this->DBPASSWORD);
+            
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $conn;
+            
+          } catch(PDOException $e) {
+            echo "Connection failed: " . $e->getMessage();
+          }
     }
 
-    public function getConnection() {
-        return $this->conn;
-    }
+
+    
+
+
+   
+    
+
+
+
 }
-
-?>

@@ -1,7 +1,9 @@
 <?php
+use App\core\Router;
 
 session_start();
 include '../vendor/autoload.php';
-include '../core/Router.php';
 
-new Router;
+
+$app= new Router;
+$app->loadController();
