@@ -1,48 +1,77 @@
-<?php 
-
+<?php
+// namespace App\controllers;
 namespace App\core;
 
-use App\controllers\HomeController;
-use App\controllers\RegisterController;
-use App\Controller\_404;
+use App\core\Request;
+use App\controllers\UserController;
+
+
+
 class Router {
-    private static $controller ;
-    private static $method = "index";
-    private static function splitURL() {
-        $url = $_GET['url'] ?? 'home';
-        $url = trim($url, "/");
-    
-        return explode("/", $url);
+    static private array $routes = [];
+
+    static public function get($path, $callback){
+        self::$routes['get'][$path] = $callback;
+    }
+
+    static public function post($path, $callback){
+        self::$routes['post'][$path] = $callback;
     }
     
-    public static function  loadController() {
-        $url = self::splitURL();
-        $controllerName = ucwords($url[0]) . "Controller";
-        $controllerClass = "App\\controllers\\" . $controllerName;
-        var_dump($controllerClass);
-
-        if(!empty($url[1])){
-
-                self::$method = $url[1];
-        }
-
-
-        if (class_exists($controllerClass)) {
-            self::$controller = new $controllerClass();
-            var_dump($controllerClass);
-            if(method_exists(self::$controller,self::$method)){
-                var_dump(method_exists(self::$controller,self::$method));  
-                $url = count($url) > 2 ? array_slice($url, 2) : [];
-
-                call_user_func_array([self::$controller,self::$method],$url);
-               
-            } else {
-        
-                // self::$controller = new _404();
-            }
-        } else {
-            // self::$controller = new _404();
-        }
+    static public function getroutes(){
+        return self::$routes;
+    }
     
+    static public function getCallback(){ 
+        $path = Request::getPath();
+        $method = strtolower(Request::getMethod());
+
+        $callback = self::$routes[$method][$path] ?? false;
+
+        if ($callback) {
+            if (is_string($callback)) {
+                return self::renderView($callback);
+            }
+
+            if (is_array($callback) && class_exists($callback[0])) {
+                $controller = new $callback[0]();
+                $method = $callback[1];
+
+                if (method_exists($controller, $method)) {
+                    return call_user_func([$controller, $method]);
+                }
+            }
+
+           
+                return call_user_func($callback);
+            
+        }
+
+        // Route not found
+        http_response_code(404);
+        return self::renderView('404'); 
+    }
+
+    static public function renderView($view, $variables = [])
+    {
+        $layoutContent = self::layoutContent();
+        $viewContent =  self::renderOnlyView($view, $variables);
+        return str_replace("{{content}}", $viewContent, $layoutContent);
+    }
+
+    static protected function renderOnlyView($view, $variables = [])
+    {
+        // extract($variables);
+
+        ob_start();
+        require_once dirname(__DIR__)."\\views\\$view.php";
+        return ob_get_clean();
+    }
+
+    static protected function layoutContent()
+    {
+        ob_start();
+        require_once dirname(__DIR__)."\\views\\layout\\main.php";
+        return ob_get_clean();
     }
 }
