@@ -81,7 +81,7 @@
         <nav>
             <a href="home.php">Accueil</a>
             <a href="login.php">Connexion</a>
-            <a href="signup.php">Inscription</a>
+            <a href="register">Inscription</a>
         </nav>
     </header>
 
