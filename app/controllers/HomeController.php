@@ -12,9 +12,9 @@ class HomeController extends Controller{
         $getWikis= $wikis->getAll();
         self::view('home', $getWikis);
     }
-    public function edit(){
+    // public function register(){
         
-        self::view('home');
-    }
+    //     self::view('register');
+    // }
     
 }
