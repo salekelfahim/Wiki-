@@ -1,8 +1,11 @@
 <?php
 namespace App\database;
-namespace App\controllers;
-namespace App\core;
+namespace App\models;
+
 use App\database\Database;
+
+require_once '../app/Database/Database.php';
+
 
 class User extends Database {
     private $id;
@@ -62,10 +65,10 @@ class User extends Database {
         $stmt = $this->getConnection()->prepare($sql);
         $stmt->execute([$this->fname, $this->lname, $this->email, $hashedPassword]);
         if ($stmt) {
-            echo true;
+            return true;
         } 
         else {
-            echo false;
+            return false;
         }
 
     }
