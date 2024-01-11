@@ -1,8 +1,9 @@
 <?php
 namespace App\database;
-namespace App\controllers;
-namespace App\core;
+namespace App\models;
+
 use App\database\Database;
+
 
 class User extends Database {
     private $id;

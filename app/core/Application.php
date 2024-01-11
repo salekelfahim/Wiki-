@@ -7,7 +7,5 @@ class Application{
     public function run(){
          $callback = Router::getCallback();
          echo $callback;
-
-       
      }
 }

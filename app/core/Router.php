@@ -1,5 +1,5 @@
 <?php
-// namespace App\controllers;
+namespace App\controllers;
 namespace App\core;
 
 use App\core\Request;

@@ -2,13 +2,10 @@
 
 namespace App\core;
 namespace App\controllers;
-namespace App\models;
 
 use App\core\Router;
 use App\models\User;
 
-// require_once '../App/models/User.php';
-// require_once '../App/core/Router.php';
 
 class UserController
 {
@@ -32,7 +29,7 @@ class UserController
                 $pwd = $_POST['pwd'];
 
                 $user = new User;
-                var_dump($user);die();
+
                 $user->setFname($fname);
                 $user->setLname($lname);
                 $user->setEmail($email);
