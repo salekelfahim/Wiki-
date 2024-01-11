@@ -40,7 +40,33 @@ class UserController
                     // $this->router->renderView('login');
                     header("location:login");
                 }
+                
             }
         }
+    }
+    public function login() {
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $email = $_POST['email'];
+            $pwd = $_POST['pwd'];
+
+            $user = new User;
+            $userlogin = $user->login($email, $pwd);
+
+            if($userlogin){
+                // $_SESSION['email']= $userlogin->email;
+                $_SESSION['fname']= $userlogin->fname;
+                $_SESSION['id_role']=$userlogin->id_role;
+                $_SESSION['id']=$userlogin->id;
+                if ($_SESSION['id_role']==1){
+                    header("Location: dashboardAdmin"); 
+                }
+                elseif($_SESSION['id_role']==2){
+                header("Location:/");
+                }
+           } else {
+            return $this->router->renderView('login');
+           }
+        } 
     }
 }

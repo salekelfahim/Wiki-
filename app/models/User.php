@@ -72,4 +72,15 @@ class User extends Database {
         }
 
     }
+    public function login($email,$pwd){
+        $sql = "SELECT * FROM `utilisateur` WHERE email = ?";
+        $stm = $this->getConnection()->prepare($sql);
+        $stm->execute([$email]);
+        $result = $stm->fetchObject();
+        if ($result && password_verify($pwd, $result->pwd)) {
+            return $result;
+        } else {
+            return false; 
+        }
+    }
 }

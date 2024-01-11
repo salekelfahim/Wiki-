@@ -80,7 +80,7 @@
         <h1>Wiki</h1>
         <nav>
             <a href="home.php">Accueil</a>
-            <a href="login.php">Connexion</a>
+            <a href="login">Connexion</a>
             <a href="registre">Inscription</a>
         </nav>
     </header>
