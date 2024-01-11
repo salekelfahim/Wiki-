@@ -58,11 +58,11 @@ class UserController
                 $_SESSION['fname']= $userlogin->fname;
                 $_SESSION['id_role']=$userlogin->id_role;
                 $_SESSION['id']=$userlogin->id;
-                if ($_SESSION['id_role']=1){
+                if ($_SESSION['id_role']==1){
                     header("Location: dashboardAdmin"); 
                 }
-                elseif($_SESSION['id_role']=2){
-                header("Location:home");
+                elseif($_SESSION['id_role']==2){
+                header("Location:/");
                 }
            } else {
             return $this->router->renderView('login');

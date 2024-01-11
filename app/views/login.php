@@ -41,7 +41,7 @@
 
                   <div class="form-check d-flex justify-content-center mb-5">
                     <label class="form-check-label" for="form2Example3">
-                      You don't have an account? <a href="signup">Sign up</a>
+                      You don't have an account? <a href="registre">Sign up</a>
                     </label>
                   </div>
 
