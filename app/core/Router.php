@@ -4,7 +4,7 @@ namespace App\core;
 
 use App\core\Request;
 use App\controllers\UserController;
-
+require_once '../app/controllers/UserController.php';
 
 
 class Router {

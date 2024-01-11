@@ -5,6 +5,7 @@ namespace App\controllers;
 
 use App\core\Router;
 use App\models\User;
+require_once '../app/models/User.php';
 
 
 class UserController
@@ -36,8 +37,8 @@ class UserController
                 $user->setPassword($pwd);
                 
                 if ($user->signup()) {
-                    // echo "success";
-                    // die();
+                    // $this->router->renderView('login');
+                    header("location:login");
                 }
             }
         }
