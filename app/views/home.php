@@ -79,17 +79,17 @@
     <header>
         <h1>Wiki</h1>
         <nav>
-            <a href="home.php">Accueil</a>
-            <a href="login">Connexion</a>
-            <a href="registre">Inscription</a>
+            <a href="/">Home</a>
+            <a href="login">Login</a>
+            <a href="registre">Sign Up</a>
         </nav>
     </header>
 
     <div class="welcome-page">
-        <h2 class="welcome-message">Bienvenue sur notre plateforme de Wiki !</h2>
-        <p>Découvrez les prochains événements passionnants.</p>
+        <h2 class="welcome-message">Welcome to Wiki</h2>
+        <p>Enjoy latest Wikis</p>
     </div>
-    <!-- <main>
+    <main>
         
         <?php foreach ($getWikis as $wikis): ?>
             <div class="cart">
@@ -105,10 +105,10 @@
                 <a href="detai?id=<?php echo $row->id; ?>">Voir plus</a>
             </div>
         <?php endforeach; ?>
-    </main> -->
+    </main>
 
     <footer>
-        <p>&copy; 2023 Présentation des Événements. Tous droits réservés.</p>
+        <p>&copy; 2024 Wiki. All Rights Reserved </p>
     </footer>
 </body>
 

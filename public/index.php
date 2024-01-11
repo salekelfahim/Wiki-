@@ -14,6 +14,7 @@ require_once '../app/core/Request.php';
 
 $app = new Application();
 Router::get('/', 'home');
+Router::post('/', [HomeController::class, 'getAllWikis']);
 Router::get('/registre', 'signup');
 Router::post('/registre',[UserController::class, 'signup']);
 Router::get('/login', 'login');
