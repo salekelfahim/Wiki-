@@ -2,21 +2,26 @@
 
 namespace App\controllers;
 
-use App\core\Controller;
+use App\core\Router;
 use App\models\Wiki;
 require_once '../app/models/Home.php';
 require_once '../app/models/Wiki.php';
 
 
-// class HomeController extends Controller{
-//     public function index(){
-//         $wikis= new Wiki();
-//         $getWikis= $wikis->getAll();
-//         self::view('home', $getWikis);
-//     }
-    // public function register(){
-        
-    //     self::view('register');
-    // }
+class HomeController
+{
+    public Router $router;
     
-// }
+    public function __construct()
+    {
+        $this->router = new Router();
+    }
+    public function getAllWikis(){
+       
+        $wikis= new Wiki();
+        $getWikis= $wikis->getAll();
+        $this->router->renderView('home', ['getWikis' => $getWikis]);
+    }
+   
+    
+}

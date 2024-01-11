@@ -1,10 +1,12 @@
 <?php
 
 namespace App\core;
+
 namespace App\controllers;
 
 use App\core\Router;
 use App\models\User;
+
 require_once '../app/models/User.php';
 
 
@@ -26,7 +28,7 @@ class UserController
                 $lname = $_POST['lname'];
                 $fname = $_POST['fname'];
                 $email = $_POST['email'];
-                
+
                 $pwd = $_POST['pwd'];
 
                 $user = new User;
@@ -35,16 +37,16 @@ class UserController
                 $user->setLname($lname);
                 $user->setEmail($email);
                 $user->setPassword($pwd);
-                
+
                 if ($user->signup()) {
                     // $this->router->renderView('login');
                     header("location:login");
                 }
-                
             }
         }
     }
-    public function login() {
+    public function login()
+    {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $email = $_POST['email'];
@@ -53,20 +55,24 @@ class UserController
             $user = new User;
             $userlogin = $user->login($email, $pwd);
 
-            if($userlogin){
+            if ($userlogin) {
                 // $_SESSION['email']= $userlogin->email;
-                $_SESSION['fname']= $userlogin->fname;
-                $_SESSION['id_role']=$userlogin->id_role;
-                $_SESSION['id']=$userlogin->id;
-                if ($_SESSION['id_role']==1){
-                    header("Location: dashboardAdmin"); 
+                $_SESSION['fname'] = $userlogin->fname;
+                $_SESSION['id_role'] = $userlogin->id_role;
+                $_SESSION['id'] = $userlogin->id;
+                if ($_SESSION['id_role'] == 1) {
+                    header("Location: dashboardAdmin");
+                } elseif ($_SESSION['id_role'] == 2) {
+                    header("Location:/");
                 }
-                elseif($_SESSION['id_role']==2){
-                header("Location:/");
-                }
-           } else {
-            return $this->router->renderView('login');
-           }
-        } 
+            } else {
+                return $this->router->renderView('login');
+            }
+        }
+    }
+    public function logout()
+    {
+        session_destroy();
+        header('Location: /');
     }
 }

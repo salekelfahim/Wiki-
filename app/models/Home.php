@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Model;
+namespace App\models;
 
 use PDO;
 use PDOException;
 
 use App\Database\Database;
-// require_once '../app/Database/Database.php';
+require_once '../app/Database/Database.php';
 
-class HomeModel
+class Home
 {
   private $db;
 
