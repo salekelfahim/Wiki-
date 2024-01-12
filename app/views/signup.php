@@ -68,6 +68,12 @@
                 </form>
 
               </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                <img src="images/Wikipedia_Logo_1.0.png"
+                  class="img-fluid" alt="Image">
+
+              </div>
             </div>
           </div>
         </div>

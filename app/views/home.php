@@ -32,7 +32,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            height: 80vh;
+            height: 35vh;
         }
 
         .welcome-message {
@@ -72,6 +72,9 @@
             display: inline-block;
             margin-top: 10px;
         }
+        #img {
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -93,13 +96,14 @@
         
         <?php foreach ($getWikis as $wikis): ?>
             <div class="cart">
+                <img id="img" src="images/Wikipedia_Logo_1.0.png" alt="Wiki">
                 <h3>
                     <?php echo $wikis->title ?>
                 </h3>
                 <p>
                     <?php echo $wikis->content ?>
                 </p>
-                <a href="detai?id=<?php echo $wikis->id; ?>">Voir plus</a>
+                <a href="details?id=<?=$wikis->id;?>">Voir plus</a>
             </div>
         <?php endforeach; ?>
     </main>
