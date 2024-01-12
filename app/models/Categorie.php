@@ -25,7 +25,7 @@ class Categorie
 
     public function getAllcategories()
     {
-        $sql = "SELECT * FROM `category` ORDER BY `category`.`id_category` ASC limit 6";
+        $sql = "SELECT * FROM `category` ORDER BY `category`.`id_category` ASC limit 4";
         $result = Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
         if ($result) {
             return $result;

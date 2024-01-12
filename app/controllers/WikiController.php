@@ -43,7 +43,6 @@ class WikiController
     public function getAllCategoriesTags(){
         $categories = $this->getAllCategories();
         $tags = $this->getAllTags();
-        // var_dump($categories);die();
         return $this->router->renderView('addwiki',  ["categories" => $categories, "tags" =>$tags]);
     }
 

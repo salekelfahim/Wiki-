@@ -49,7 +49,6 @@ class UserController
             $userlogin = $user->login($email, $pwd);
 
             if ($userlogin) {
-                // $_SESSION['email']= $userlogin->email;
                 $_SESSION['fname'] = $userlogin->fname;
                 $_SESSION['id_role'] = $userlogin->id_role;
                 $_SESSION['id'] = $userlogin->id;
