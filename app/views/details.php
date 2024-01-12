@@ -102,7 +102,7 @@
             <a href="/">Back</a>
             <?php
         } else {
-            echo "Aucun événement trouvé.";
+            echo "No Wikis to Show.";
         }
         ?>
     </div>
