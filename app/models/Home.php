@@ -1,24 +1,16 @@
 <?php
 
-require_once '../app/Database/Database.php';
+// require_once '../app/Database/Database.php';
 
-class Home
-{
-  private $db;
+// class Home
+// {
 
-  public function __construct()
-  {
-    $this->db = new Database();
-  }
-  public function findAll()
-  {
-    $conn = $this->db->getConnection();
-    $sql = "SELECT * FROM `wiki`";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-    if ($result) {
-      return $result;
-    }
-  }
-}
+//   public function findAll()
+//   {
+//     $sql = "SELECT * FROM `wiki`";
+//     $result =  Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
+//     if ($result) {
+//       return $result;
+//     }
+//   }
+// }
