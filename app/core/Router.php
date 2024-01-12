@@ -1,12 +1,6 @@
 <?php
-namespace App\controllers;
-namespace App\core;
-
-use App\core\Request;
-use App\controllers\UserController;
-require_once '../app/controllers/UserController.php';
-
-
+require_once 'Request.php';
+require_once '../app/controllers/HomeController.php';
 class Router {
     static private array $routes = [];
 
@@ -61,7 +55,7 @@ class Router {
 
     static protected function renderOnlyView($view, $variables = [])
     {
-        // extract($variables);
+        extract($variables);
 
         ob_start();
         require_once dirname(__DIR__)."\\views\\$view.php";

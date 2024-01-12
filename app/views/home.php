@@ -94,15 +94,12 @@
         <?php foreach ($getWikis as $wikis): ?>
             <div class="cart">
                 <h3>
-                    <?php echo  $wikis->id ?>
-                </h3>
-                <p>
                     <?php echo $wikis->title ?>
-                </p>
+                </h3>
                 <p>
                     <?php echo $wikis->content ?>
                 </p>
-                <a href="detai?id=<?php echo $row->id; ?>">Voir plus</a>
+                <a href="detai?id=<?php echo $wikis->id; ?>">Voir plus</a>
             </div>
         <?php endforeach; ?>
     </main>

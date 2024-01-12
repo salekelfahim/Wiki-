@@ -1,12 +1,5 @@
 <?php
 
-namespace App\core;
-
-namespace App\controllers;
-
-use App\core\Router;
-use App\models\User;
-
 require_once '../app/models/User.php';
 
 
