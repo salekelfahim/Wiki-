@@ -1,8 +1,5 @@
 <?php
-namespace App\core;
-use App\core\Router;
-
-
+require_once 'Router.php';
 class Application{
     public function run(){
          $callback = Router::getCallback();
