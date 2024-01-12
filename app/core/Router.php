@@ -1,6 +1,6 @@
 <?php
 require_once 'Request.php';
-require_once '../app/controllers/HomeController.php';
+require_once '../app/controllers/WikiController.php';
 class Router {
     static private array $routes = [];
 
@@ -41,7 +41,6 @@ class Router {
             
         }
 
-        // Route not found
         http_response_code(404);
         return self::renderView('404'); 
     }

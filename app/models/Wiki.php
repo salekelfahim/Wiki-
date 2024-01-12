@@ -26,4 +26,14 @@ class Wiki
       return $result;
     
   }
+  public function getWiki($id){
+    $sql = "SELECT * FROM  `wiki` WHERE id = $id";
+    $conn = $this->db->getConnection();
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_OBJ);
+    if ($result) {
+        return $result;
+    }
+}
 }

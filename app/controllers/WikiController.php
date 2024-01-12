@@ -6,7 +6,7 @@ require_once '../app/models/Home.php';
 
 
 
-class HomeController
+class WikiController
 {
     public Router $router;
     public Wiki $wiki;
@@ -23,6 +23,12 @@ class HomeController
         $getWikis= $wikis->getAll();
     
         return $this->router->renderView('home',  ["getWikis" => $getWikis]);
+    }
+
+    public function getWiki(){
+        $wiki = $this->wiki->getWiki($_GET['id']);
+        
+        return $this->router->renderView('details',["wiki"=>$wiki]);
     }
 
     
