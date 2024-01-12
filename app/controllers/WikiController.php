@@ -2,7 +2,7 @@
 
 require_once '../app/core/Router.php';
 require_once '../app/models/Wiki.php';
-require_once '../app/models/Home.php';
+
 
 
 
@@ -27,7 +27,6 @@ class WikiController
 
     public function getWiki(){
         $wiki = $this->wiki->getWiki($_GET['id']);
-        
         return $this->router->renderView('details',["wiki"=>$wiki]);
     }
 

@@ -98,15 +98,8 @@
             <p>Content:
                 <?php echo $wiki->content; ?>
             </p>
-            <!-- <p>Date de l'événement:
-                <?php echo $data[0]->dateEvent; ?>
-            </p>
-            <p>Lieu de l'événement:
-                <?php echo $data[0]->locationEvent; ?>
-            </p>
-            <a href="ticke?id=<?php echo $data[0]->id; ?>">page acheter le tickes</a> -->
 
-            <a href="home">Retour à la liste des événements</a>
+            <a href="/">Back</a>
             <?php
         } else {
             echo "Aucun événement trouvé.";
