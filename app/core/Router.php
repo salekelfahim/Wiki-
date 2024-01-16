@@ -1,6 +1,9 @@
 <?php
 require_once 'Request.php';
+require_once '../app/controllers/UserController.php';
 require_once '../app/controllers/WikiController.php';
+require_once '../app/controllers/AdminController.php';
+
 class Router {
     static private array $routes = [];
 
@@ -55,7 +58,6 @@ class Router {
     static protected function renderOnlyView($view, $variables = [])
     {
         extract($variables);
-
         ob_start();
         require_once dirname(__DIR__)."\\views\\$view.php";
         return ob_get_clean();
@@ -65,6 +67,18 @@ class Router {
     {
         ob_start();
         require_once dirname(__DIR__)."\\views\\layout\\main.php";
+        return ob_get_clean();
+    }
+
+    static public function renderAdminView($view, $variables = []){
+        $layoutContent = self::layoutAdminContent();
+        $viewContent =  self::renderOnlyView($view, $variables);
+        return str_replace("{{admincontent}}", $viewContent, $layoutContent);
+    }
+
+    static protected function layoutAdminContent(){
+        ob_start();
+        require_once dirname(__DIR__)."\\views\\layout\\maindash.php";
         return ob_get_clean();
     }
 }

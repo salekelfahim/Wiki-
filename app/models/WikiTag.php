@@ -1,5 +1,5 @@
 <?php
-require_once '../Database/Database.php';
+require_once '../app/Database/Database.php';
 class TagWiki{
     private $tag;
     private $wiki;

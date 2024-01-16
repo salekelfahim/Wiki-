@@ -66,7 +66,7 @@ class User  {
 
     }
     public function login($email,$pwd){
-        $sql = "SELECT * FROM `utilisateur` WHERE email = ?";
+        $sql = "SELECT * FROM utilisateur WHERE email = ?";
         $stm = Database::connexion()->getPdo()->prepare($sql);
         $stm->execute([$email]);
         $result = $stm->fetchObject();
@@ -76,4 +76,11 @@ class User  {
             return false; 
         }
     }
-}
+
+    public function totalUsers(){
+        $sql = "SELECT COUNT(*) as totalAuteur FROM `utilisateur` WHERE `id_role` = 2";
+        return Database::connexion()->getPdo()->query($sql)->fetch(PDO::FETCH_OBJ);
+
+    }
+    
+    }
