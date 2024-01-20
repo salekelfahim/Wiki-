@@ -70,7 +70,7 @@ class Wiki
   }
   public function getAll()
   {
-    $sql = "SELECT * FROM `wiki`";
+    $sql = "SELECT * FROM `wiki` WHERE status = 1 ORDER BY `id` DESC";
     $result =  Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
     if ($result) {
       return $result;
@@ -79,8 +79,12 @@ class Wiki
   }
   public function getWiki($id)
   {
-    $sql = "SELECT * FROM  `wiki` WHERE id = $id";
-    $result =  Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
+    $sql = "SELECT wiki.title,wiki.content, utilisateur.Fname,utilisateur.Lname,category.categoryName
+    FROM wiki 
+    JOIN category ON wiki.id_category = category.id
+    JOIN utilisateur ON wiki.id_utilisateur = utilisateur.id
+    WHERE wiki.id = $id";
+    $result =  Database::connexion()->getPdo()->query($sql)->fetch(PDO::FETCH_OBJ);
     if ($result) {
       return $result;
     }
@@ -88,8 +92,8 @@ class Wiki
   public function addWiki()
   {
     Database::connexion()->getPdo()->beginTransaction();
-    $sql = "INSERT INTO `wiki`(`title`, `content`, `date`, `id_utilisateur`, `id_category`) 
-              VALUES (?,?,?,?,?)";
+    $sql = "INSERT INTO `wiki`(`title`, `content`, `id_utilisateur`, `id_category`) 
+              VALUES (?,?,?,?)";
     $stmt = Database::connexion()->getPdo()->prepare($sql);
     $stmt->execute([$this->titre, $this->contenu, $this->auteur, $this->categorie]);
     if ($stmt) {
@@ -104,12 +108,48 @@ class Wiki
 
   public function getMywikis($auteur)
   {
-    $sql = "SELECT * FROM  `wiki` WHERE id_utilisateur = $auteur";
-    $row = Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
-    if ($row) {
-      return $row;
-    }
+    $sql = "SELECT * FROM `wiki` WHERE id_utilisateur = :auteur";
+
+    $conn = Database::connexion()->getPdo();
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':auteur', $auteur, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+    return $result;
   }
+
+  // public function getMytags($auteur)
+  // {
+  //   $sql = "SELECT tag.tagName from tag 
+  //   JOIN tag_wiki ON tag_wiki.id_tag = tag.id
+  //   JOIN wiki ON tag_wiki.id_wiki = wiki.id
+  //   WHERE wiki.id_utilisateur = :auteur";
+
+  //   $conn = Database::connexion()->getPdo();
+  //   $stmt = $conn->prepare($sql);
+  //   $stmt->bindParam(':auteur', $auteur, PDO::PARAM_INT);
+  //   $stmt->execute();
+
+  //   $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+  //   return $result;
+  // }
+
+  // public function getMycatgs($auteur)
+  // {
+  //   $sql = "SELECT * FROM `wiki` JOIN category ON category.id = wiki.id_category WHERE wiki.id_utilisateur = :auteur";
+
+  //   $conn = Database::connexion()->getPdo();
+  //   $stmt = $conn->prepare($sql);
+  //   $stmt->bindParam(':auteur', $auteur, PDO::PARAM_INT);
+  //   $stmt->execute();
+
+  //   $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+  //   return $result;
+  // }
 
   public function deleteWiki($id)
   {
@@ -118,5 +158,72 @@ class Wiki
     if ($result) {
       return true;
     }
+  }
+
+  public function updateWiki($id)
+  {
+    $sql = "UPDATE `wiki` SET `title` = ?, `content` = ? WHERE id = ?";
+    $stmt = Database::connexion()->getPdo()->prepare($sql);
+    $stmt->execute([$this->titre, $this->contenu, $id]);
+  }
+
+
+  public function getArchiveWikis()
+  {
+    $sql = "SELECT * FROM wiki JOIN utilisateur ON wiki.id_utilisateur = utilisateur.id_user  WHERE wiki.status = 0";
+    $row = Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
+    if ($row) {
+      return $row;
+    }
+  }
+  public function unarchive($id)
+  {
+    $sql = "UPDATE `wiki` SET `status` = 1 WHERE id = :id";
+    $stmt = Database::connexion()->getPdo()->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+  }
+
+  public function archive($id)
+  {
+    $sql = "UPDATE `wiki` SET `status` = 0 WHERE id = :id";
+    $stmt = Database::connexion()->getPdo()->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+  }
+  public function getAllw()
+  {
+    $sql = "SELECT * FROM `wiki` ORDER BY `id` DESC";
+    $result =  Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
+    if ($result) {
+      return $result;
+    }
+    return $result;
+  }
+
+  public function totalWikis()
+  {
+    $sql = "SELECT COUNT(*) as totalWikis FROM `wiki`";
+    return Database::connexion()->getPdo()->query($sql)->fetch(PDO::FETCH_OBJ);
+  }
+
+  public function seatchbytitle($title)
+  {
+    $sql = "SELECT DISTINCT wiki.*
+          FROM wiki
+          JOIN category ON category.id = wiki.id_category
+          JOIN tag_wiki ON tag_wiki.id_wiki = wiki.id
+          JOIN tag ON tag_wiki.id_tag = tag.id
+          WHERE  tag.tagName LIKE :input
+          OR wiki.title LIKE :input
+          OR category.categoryName LIKE :input
+          AND wiki.status = 1";
+    $stmt = Database::connexion()->getPdo()->prepare($sql);
+    $stmt->bindValue(':input', '%' . $title . '%', PDO::PARAM_STR);
+    $stmt->execute();
+
+    $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+    return $result;
   }
 }
